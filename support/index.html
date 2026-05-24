@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SnapPaste Support</title>
+  <style>
+    :root {
+      --bg: #f8f5ef;
+      --surface: #ffffff;
+      --text: #1f2937;
+      --muted: #5d6470;
+      --accent: #9a3412;
+      --border: #ece7df;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top right, rgba(154, 52, 18, 0.12), transparent 28%),
+        var(--bg);
+    }
+
+    .wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 52px 24px 80px;
+    }
+
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 36px;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.05);
+    }
+
+    h1, h2 { line-height: 1.2; }
+    h1 { margin: 0 0 12px; font-size: clamp(2rem, 4vw, 2.8rem); }
+    h2 { margin: 28px 0 10px; font-size: 1.1rem; }
+
+    p, li {
+      color: var(--muted);
+      line-height: 1.72;
+    }
+
+    ul {
+      padding-left: 20px;
+      margin: 10px 0;
+    }
+
+    a {
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="panel">
+      <h1>SnapPaste Support</h1>
+      <p>
+        SnapPaste is a local-first clipboard tool for macOS. If you need help, have a bug to
+        report, or want to request a feature, use the contact option below.
+      </p>
+
+      <h2>Contact</h2>
+      <p>
+        Support email:
+        <a href="mailto:yuanyeyaozi@126.com">yuanyeyaozi@126.com</a>
+      </p>
+
+      <h2>What to Include</h2>
+      <ul>
+        <li>Your macOS version</li>
+        <li>Your SnapPaste version</li>
+        <li>A short description of the problem</li>
+        <li>Steps to reproduce the issue</li>
+        <li>Screenshots if they help explain the issue</li>
+      </ul>
+
+      <h2>Common Topics</h2>
+      <ul>
+        <li>Clipboard history not appearing as expected</li>
+        <li>Questions about optional Accessibility permission</li>
+        <li>Restoring SnapPaste Pro purchases</li>
+        <li>Privacy and local data storage questions</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>
