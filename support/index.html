@@ -4,91 +4,374 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>SnapPaste Support</title>
+  <meta
+    name="description"
+    content="Support for SnapPaste, a developer context clipboard workspace for Mac."
+  >
   <style>
     :root {
-      --bg: #f8f5ef;
-      --surface: #ffffff;
-      --text: #1f2937;
-      --muted: #5d6470;
-      --accent: #9a3412;
-      --border: #ece7df;
+      --bg: #f4efe6;
+      --surface: rgba(255, 252, 247, 0.9);
+      --surface-strong: #fffdf9;
+      --text: #1d2430;
+      --muted: #5e6673;
+      --accent: #b45309;
+      --accent-strong: #8a320c;
+      --border: rgba(29, 36, 48, 0.08);
+      --shadow: 0 18px 50px rgba(62, 39, 24, 0.08);
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     body {
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: var(--text);
+      font-family: "SF Pro Text", "Segoe UI", sans-serif;
       background:
-        radial-gradient(circle at top right, rgba(154, 52, 18, 0.12), transparent 28%),
-        var(--bg);
-    }
-
-    .wrap {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 52px 24px 80px;
-    }
-
-    .panel {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 36px;
-      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.05);
-    }
-
-    h1, h2 { line-height: 1.2; }
-    h1 { margin: 0 0 12px; font-size: clamp(2rem, 4vw, 2.8rem); }
-    h2 { margin: 28px 0 10px; font-size: 1.1rem; }
-
-    p, li {
-      color: var(--muted);
-      line-height: 1.72;
-    }
-
-    ul {
-      padding-left: 20px;
-      margin: 10px 0;
+        radial-gradient(circle at top left, rgba(180, 83, 9, 0.18), transparent 26%),
+        radial-gradient(circle at top right, rgba(29, 78, 216, 0.1), transparent 24%),
+        linear-gradient(180deg, #f7f1e7 0%, #f1ebe2 100%);
     }
 
     a {
-      color: var(--accent);
+      color: var(--accent-strong);
+    }
+
+    .wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 40px 20px 72px;
+    }
+
+    .hero,
+    .section,
+    .faq-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+    }
+
+    .hero {
+      padding: 40px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -10% -30% auto;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(180, 83, 9, 0.18), transparent 68%);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(180, 83, 9, 0.1);
+      color: var(--accent-strong);
+      font-size: 0.92rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      line-height: 1.15;
+      font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
+      font-weight: 700;
+    }
+
+    h1 {
+      margin-top: 18px;
+      font-size: clamp(2.6rem, 6vw, 4.5rem);
+      max-width: 10ch;
+    }
+
+    h2 {
+      font-size: 1.6rem;
+      margin-bottom: 18px;
+    }
+
+    h3 {
+      font-size: 1.08rem;
+      margin-bottom: 10px;
+    }
+
+    p,
+    li {
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: 1rem;
+    }
+
+    .hero-copy {
+      max-width: 760px;
+    }
+
+    .hero-copy p {
+      margin: 18px 0 0;
+      font-size: 1.05rem;
+    }
+
+    .hero-grid,
+    .two-col,
+    .faq-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .hero-grid {
+      grid-template-columns: 1.5fr 1fr;
+      margin-top: 28px;
+    }
+
+    .two-col,
+    .faq-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      margin-top: 22px;
+    }
+
+    .stat,
+    .section,
+    .faq-item {
+      padding: 22px;
+    }
+
+    .stat {
+      border-radius: 18px;
+      background: var(--surface-strong);
+      border: 1px solid var(--border);
+    }
+
+    .stat strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--accent-strong);
+    }
+
+    .section {
+      margin-top: 22px;
+    }
+
+    .list {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .list li + li {
+      margin-top: 8px;
+    }
+
+    .contact-card {
+      padding: 18px 20px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(180, 83, 9, 0.1), rgba(29, 78, 216, 0.06));
+      border: 1px solid rgba(180, 83, 9, 0.14);
+    }
+
+    .contact-card a {
+      font-weight: 700;
+      text-decoration-thickness: 2px;
+    }
+
+    .lang-note {
+      margin-top: 14px;
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 760px) {
+      .hero,
+      .section,
+      .faq-item {
+        padding: 24px;
+      }
+
+      .hero-grid,
+      .two-col,
+      .faq-grid {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        max-width: none;
+      }
     }
   </style>
 </head>
 <body>
   <main class="wrap">
-    <section class="panel">
-      <h1>SnapPaste Support</h1>
+    <section class="hero">
+      <span class="eyebrow">SnapPaste Support</span>
+      <div class="hero-copy">
+        <h1>A developer context clipboard workspace for Mac</h1>
+        <p>
+          SnapPaste helps developers recover and paste back commands, code, logs,
+          API snippets, and config paths from the current task context across
+          Terminal, Cursor, Chrome, Claude, Xcode, and documentation tools.
+        </p>
+        <p>
+          This support page reflects the latest product positioning, permission
+          behavior, privacy model, and SnapPaste Pro purchase flow.
+        </p>
+      </div>
+
+      <div class="hero-grid">
+        <div class="stat">
+          <strong>Support Contact</strong>
+          <p>
+            Email:
+            <a href="mailto:yuanyeyaozi@126.com">yuanyeyaozi@126.com</a>
+          </p>
+          <p class="lang-note">
+            English or Chinese is both OK. Include screenshots if they help.
+          </p>
+        </div>
+        <div class="stat">
+          <strong>Core Product Behavior</strong>
+          <p>
+            SnapPaste opens with <em>Current Context</em> first and prioritizes
+            technical snippets before broader clipboard history when they exist.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Before You Email</h2>
+      <div class="two-col">
+        <div>
+          <h3>What to include</h3>
+          <ul class="list">
+            <li>Your macOS version</li>
+            <li>Your SnapPaste version</li>
+            <li>A short description of the issue</li>
+            <li>The app you were working in, such as Terminal or Cursor</li>
+            <li>Steps to reproduce the problem</li>
+            <li>Screenshots or screen recordings when useful</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Good support topics</h3>
+          <ul class="list">
+            <li>Current Context or All History behavior</li>
+            <li>Accessibility permission and direct paste</li>
+            <li>SnapPaste Pro purchase or restore issues</li>
+            <li>Privacy, local storage, and sensitive content questions</li>
+            <li>Clipboard capture, search, favorites, or export problems</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Quick Answers</h2>
+      <div class="faq-grid">
+        <article class="faq-item">
+          <h3>What does SnapPaste actually do?</h3>
+          <p>
+            SnapPaste is not positioned as a generic clipboard history list. On
+            Mac, it is designed as a developer workspace that helps you return to
+            technical snippets you just used in the current task.
+          </p>
+        </article>
+        <article class="faq-item">
+          <h3>Why does it focus on the current context first?</h3>
+          <p>
+            The main workflow is reusing commands, code, logs, API payloads, and
+            file paths from the app you are actively working in, instead of making
+            you browse a flat global list first.
+          </p>
+        </article>
+        <article class="faq-item">
+          <h3>Is Accessibility permission required?</h3>
+          <p>
+            No. Accessibility permission is optional and is only needed for
+            enhanced direct-paste behavior into the current app.
+          </p>
+        </article>
+        <article class="faq-item">
+          <h3>What still works without that permission?</h3>
+          <p>
+            You can still browse the current context, search full history, copy
+            items back to the clipboard, and paste manually without granting
+            Accessibility access.
+          </p>
+        </article>
+        <article class="faq-item">
+          <h3>Does SnapPaste upload my clipboard data?</h3>
+          <p>
+            Clipboard text, images, files, tags, search indexes, and privacy
+            rules stay on-device by default. The app does not need your clipboard
+            content to leave the Mac for normal use.
+          </p>
+        </article>
+        <article class="faq-item">
+          <h3>What does SnapPaste Pro unlock?</h3>
+          <p>
+            SnapPaste Pro unlocks advanced productivity features such as a larger
+            history capacity, favorites, batch organization, export, encrypted
+            backup, and stronger privacy controls inside the same app.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Purchase and Restore</h2>
+      <div class="contact-card">
+        <p>
+          SnapPaste Pro uses Apple In-App Purchase inside the same Mac app. If
+          you purchased Pro and it does not appear unlocked, email support with
+          your app version, macOS version, and a screenshot of the purchase state
+          if possible.
+        </p>
+        <p>
+          For restore issues, mention whether the problem happened after
+          reinstalling the app, switching Macs, or signing in with a different
+          Apple ID.
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>中文说明</h2>
       <p>
-        SnapPaste is a local-first clipboard tool for macOS. If you need help, have a bug to
-        report, or want to request a feature, use the contact option below.
+        SnapPaste 现在的 Mac 产品定位是“面向开发者的上下文剪贴板工作台”，不是单纯的通用剪贴板历史工具。它会优先展示你当前任务上下文中的命令、代码、日志、接口请求、配置路径和其他技术片段，帮助你在 Terminal、Cursor、Chrome、Claude、Xcode 和文档之间更快再次粘贴。
       </p>
-
-      <h2>Contact</h2>
-      <p>
-        Support email:
-        <a href="mailto:yuanyeyaozi@126.com">yuanyeyaozi@126.com</a>
-      </p>
-
-      <h2>What to Include</h2>
-      <ul>
-        <li>Your macOS version</li>
-        <li>Your SnapPaste version</li>
-        <li>A short description of the problem</li>
-        <li>Steps to reproduce the issue</li>
-        <li>Screenshots if they help explain the issue</li>
-      </ul>
-
-      <h2>Common Topics</h2>
-      <ul>
-        <li>Clipboard history not appearing as expected</li>
-        <li>Questions about optional Accessibility permission</li>
-        <li>Restoring SnapPaste Pro purchases</li>
-        <li>Privacy and local data storage questions</li>
-      </ul>
+      <div class="two-col">
+        <div>
+          <h3>权限与降级</h3>
+          <ul class="list">
+            <li>辅助功能权限不是首次启动必需权限。</li>
+            <li>只有“直接粘贴到当前 App”等增强能力才需要辅助功能权限。</li>
+            <li>如果不授权，仍可浏览当前上下文、搜索全局历史、复制回剪贴板并手动粘贴。</li>
+          </ul>
+        </div>
+        <div>
+          <h3>隐私与购买</h3>
+          <ul class="list">
+            <li>文本、图片、文件、标签、搜索索引和隐私规则默认仅保存在本机。</li>
+            <li>SnapPaste Pro 通过 Apple 应用内购买在同一个 App 内解锁。</li>
+            <li>如遇购买或恢复问题，请邮件附上 macOS 版本、App 版本和问题截图。</li>
+          </ul>
+        </div>
+      </div>
     </section>
   </main>
 </body>
